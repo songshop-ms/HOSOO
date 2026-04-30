@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>HOSOO MEN'S BROW - 남성 눈썹문신 전문</title>
+
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #4F5D52;
+            --primary-dark: #2F3933;
+            --accent-color: #B99B6B;
+            --bg-color: #F7F6F2;
+            --panel-color: #FFFFFF;
+            --text-main: #202421;
+            --text-sub: #5D625E;
+            --line-color: #E3E0D8;
+            --naver-green: #03C75A;
+            --kakao-yellow: #FEE500;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            word-break: keep-all;
+            overflow-x: hidden;
+        }
+
+        .noise-overlay {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 9998; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, .serif-font { font-family: 'Gowun Batang', serif; letter-spacing: 0; }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        .section-padding { padding: 100px 0; position: relative; }
+        .text-center { text-align: center; }
+
+        .section-title {
+            font-size: 2rem; margin-bottom: 10px; font-weight: 700; color: #141714;
+            display: inline-block; position: relative;
+        }
+
+        .title-line {
+            display: block; width: 0; height: 1px; background: var(--accent-color);
+            margin: 0 auto 10px auto; transition: width 1.2s; opacity: 0.8;
+        }
+        .reveal.active .title-line { width: 50px; }
+        .section-desc { color: var(--text-sub); margin-bottom: 40px; font-size: 1rem; font-weight: 300; }
+
+        .reveal { opacity: 0; transform: translateY(30px); filter: blur(5px); transition: 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+        .stagger-wrap .stagger-item { opacity: 0; transform: translateY(20px); transition: 0.8s ease; }
+        .stagger-wrap.active .stagger-item { opacity: 1; transform: translateY(0); }
+        .stagger-wrap.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-wrap.active .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-wrap.active .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+
+        .hero {
+            position: relative;
+            background-color: #111;
+            height: 100vh; height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            min-height: -webkit-fill-available;
+        }
+
+        #hero-video {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.78) 100%),
+                linear-gradient(to right, rgba(22,28,24,0.38), rgba(0,0,0,0.05), rgba(22,28,24,0.38));
+            z-index: 1; pointer-events: none;
+        }
+
+        .hero-content {
+            width: 100%; max-width: 820px;
+            z-index: 2; position: relative;
+            padding: 0 20px;
+            margin-bottom: 12vh;
+            display: flex; flex-direction: column; gap: 10px;
+            text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 {
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.9rem;
+            line-height: 1.4;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .hero-sub {
+            font-size: 1.02rem;
+            color: rgba(255,255,255,0.88);
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .hero-brand {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 3px;
+            margin-top: 25px;
+            text-transform: uppercase;
+        }
+
+        .hero-badge {
+            align-self: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0 12px;
+            border: 1px solid rgba(255,255,255,0.28);
+            color: rgba(255,255,255,0.82);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: calc(30px + env(safe-area-inset-bottom));
+            transform: translateX(-50%);
+            z-index: 10;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            cursor: pointer;
+            padding: 20px;
+            pointer-events: auto;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .scroll-indicator span { font-size: 0.7rem; letter-spacing: 2px; font-weight: 300; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
+        }
+
+        .philosophy-section {
+            position: relative;
+            background-color: #202421;
+            background-image: url('https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/%EC%B2%A0%ED%95%99%ED%83%AD%EB%B0%B0%EA%B2%BD%EC%A0%9C%EA%B1%B0.png');
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0;
+            overflow: hidden;
+            background-attachment: fixed;
+        }
+
+        .philosophy-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(17,22,19,0.72);
+            z-index: 1;
+        }
+
+        .philosophy-section .container { position: relative; z-index: 2; }
+        .quote-box { text-align: center; color: white; max-width: 720px; margin: 0 auto; }
+        .quote-icon { font-size: 3rem; color: rgba(255,255,255,0.28); font-family: serif; margin-bottom: 30px; display: block; }
+
+        .philo-main-text {
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0.96;
+        }
+
+        .philo-author {
+            font-size: 0.95rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            padding-top: 15px;
+        }
+
+        .scroll-wrapper { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); }
+        .horizontal-scroll {
+            display: flex; overflow-x: auto; gap: 15px;
+            padding: 10px 20px 50px 20px; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+        .horizontal-scroll::after { content: ''; display: block; flex: 0 0 20px; }
+
+        .portfolio-card-wrap {
+            min-width: 80vw; aspect-ratio: 3/4; flex: 0 0 auto; scroll-snap-align: center;
+            position: relative; perspective: 1000px;
+        }
+        @media (min-width: 768px) { .portfolio-card-wrap { min-width: 300px; height: 400px; } }
+
+        .portfolio-card {
+            width: 100%; height: 100%; border-radius: 8px; overflow: hidden; background-color: #eee;
+            position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .portfolio-card.is-flipped-ani { transform: rotateY(10deg) scale(0.98); }
+
+        .ba-image { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 0.4s; pointer-events: none; }
+        .img-before { z-index: 1; }
+        .img-after { z-index: 2; opacity: 1; }
+        .portfolio-card.showing-before .img-after { opacity: 0; }
+
+        .ba-label {
+            position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.62); color: white;
+            padding: 3px 10px; font-size: 0.75rem; border-radius: 20px; z-index: 10; backdrop-filter: blur(4px);
+        }
+        .guide-overlay {
+            position: absolute; bottom: 15px; right: 15px; color: rgba(255,255,255,0.92); z-index: 10;
+            font-size: 0.8rem; pointer-events: none; display: flex; align-items: center; gap: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .more-card {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: var(--primary-dark); color: white; border-radius: 8px;
+            min-width: 80vw; aspect-ratio: 3/4; flex: 0 0 auto; scroll-snap-align: center;
+        }
+        .more-text { text-align: center; font-family: 'Gowun Batang', serif; font-size: 1.1rem; line-height: 1.4; }
+        @media (min-width: 768px) { .more-card { min-width: 300px; height: 400px; } }
+
+        .blog-section { background-color: var(--panel-color); }
+        .blog-item {
+            min-width: 280px; width: 75vw; max-width: 350px; flex: 0 0 auto; scroll-snap-align: center;
+            display: flex; flex-direction: column; background: white; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); border: 1px solid #f0f0ed;
+        }
+        @media (min-width: 768px) { .blog-item { min-width: 300px; width: auto; } }
+
+        .blog-thumb { width: 100%; height: 180px; overflow: hidden; border-bottom: 1px solid #eee; }
+        .blog-content { padding: 20px; display: flex; flex-direction: column; height: 100%; }
+        .blog-meta { font-size: 0.7rem; color: var(--primary-color); font-weight: 800; margin-bottom: 8px; }
+        .blog-title { font-size: 1.05rem; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #222; }
+        .blog-desc { font-size: 0.85rem; color: #666; line-height: 1.5; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .blog-link { font-size: 0.8rem; font-weight: 600; color: #333; margin-top: auto; display: flex; align-items: center; }
+        .naver-icon { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; background-color: var(--naver-green); color: white; font-weight: 800; font-size: 9px; border-radius: 2px; margin-right: 6px; }
+
+        .process-section { background-color: transparent; }
+        .process-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .process-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .process-item {
+            position: relative; height: 320px; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); background-color: #ddd;
+        }
+        @media (min-width: 768px) { .process-item { height: 450px; } }
+
+        .process-bg { width: 100%; height: 100%; transition: transform 0.7s ease; }
+        .process-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.86), rgba(0,0,0,0.42) 60%, rgba(0,0,0,0));
+            padding: 60px 24px 30px 24px; color: white;
+            display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .step-num { font-family: 'Gowun Batang', serif; font-size: 2.5rem; opacity: 0.4; margin-bottom: -5px; line-height: 1; }
+        .step-title { font-family: 'Gowun Batang', serif; font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
+        .step-desc { font-size: 0.9rem; opacity: 0.95; line-height: 1.5; font-weight: 300; }
+
+        .faq-item { border-bottom: 1px solid var(--line-color); }
+        .faq-question {
+            padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; font-size: 1rem; color: #333;
+        }
+        .faq-question i { color: var(--primary-color); margin-left: 10px; font-size: 0.9rem; transition: 0.4s; }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s; opacity: 0;
+            color: var(--text-sub); font-size: 0.9rem; line-height: 1.6;
+        }
+        .faq-item.active .faq-answer { opacity: 1; }
+        .faq-item.active .faq-question i { transform: rotate(45deg); }
+
+        footer { padding: 50px 0 100px 0; background: white; border-top: 1px solid #f0f0f0; text-align: center; color: #999; font-size: 0.75rem; }
+
+        .floating-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--panel-color); height: 60px;
+            display: flex; z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+            transform: translateY(100%); transition: transform 0.5s ease;
+        }
+        .floating-bar.visible { transform: translateY(0); }
+        .float-btn { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+
+        .btn-insta { background: var(--panel-color); color: #333; }
+        .btn-insta i { margin-right: 6px; font-size: 1.1rem; background: -webkit-linear-gradient(#f09433, #dc2743, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .btn-inquiry { background: var(--primary-dark); color: white; }
+        .btn-inquiry i { margin-right: 8px; font-size: 1.1rem; color: var(--kakao-yellow); }
+
+        @media (max-width: 768px) {
+            .section-padding { padding: 70px 0; }
+            .section-title { font-size: 1.6rem; }
+            .process-overlay { padding: 40px 20px 25px 20px; }
+            .hero-content { margin-bottom: 18vh; gap: 7px; }
+            .hero h1 { font-size: 1.45rem; line-height: 1.38; }
+            .hero-sub { font-size: 0.94rem; }
+            .hero-brand { margin-top: 20px; font-size: 0.65rem; }
+            .scroll-indicator { bottom: calc(50px + env(safe-area-inset-bottom)); }
+            .philosophy-section {
+                background-attachment: scroll;
+                background-position: center bottom;
+                background-size: 120% auto;
+                padding: 100px 0;
+            }
+            .philo-main-text { font-size: 1.05rem; line-height: 1.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <header class="hero">
+        <video id="hero-video" autoplay muted loop playsinline>
+            <source src="https://github.com/songshop-ms/songshop/raw/refs/heads/main/%EC%8A%A4%ED%83%A0%EB%94%A9.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content" id="heroText">
+            <div class="hero-badge">MEN'S BROW DESIGN</div>
+            <h1>티 나지 않게 정돈된 눈썹,<br>남자의 인상을 바꿉니다.</h1>
+            <p class="hero-sub">진하게 채우는 시술이 아닌, 얼굴형과 결을 살리는 남성 맞춤 디자인</p>
+            <div class="hero-brand">HOSOO MEN'S BROW</div>
+        </div>
+
+        <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
+            <span>SCROLL</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <section class="section-padding philosophy-section">
+        <div class="container reveal">
+            <div class="quote-box">
+                <span class="quote-icon">“</span>
+                <p class="philo-main-text">
+                    남성 눈썹은 진한 색보다<br>
+                    선명한 윤곽과 자연스러운 결이 중요합니다.<br><br>
+                    너무 꾸민 듯하면 어색하고,<br>
+                    너무 흐리면 인상이 또렷해지지 않습니다.<br><br>
+                    HOSOO는 얼굴형, 눈매, 모량,<br>
+                    직업과 평소 스타일을 함께 보고 디자인합니다.<br><br>
+                    자연스럽게 정돈된 인상,<br>
+                    그 기준을 제가 잡아드리겠습니다.
+                </p>
+                <div class="philo-author">HOSOO 원장 드림</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding reveal">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Men's Portfolio</h2>
+                <span class="title-line"></span>
+                <p class="section-desc">사진을 터치하면<br>시술 전후의 정돈된 인상 변화를 확인하실 수 있습니다.</p>
+            </div>
+
+            <div class="scroll-wrapper">
+                <div class="horizontal-scroll">
+                    <div class="portfolio-card-wrap">
+                        <div class="portfolio-card interact-card">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/19.png" class="ba-image img-before" alt="Before">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/18.png" class="ba-image img-after" alt="After">
+                            <div class="ba-label">After</div>
+                            <div class="guide-overlay"><i class="fas fa-hand-pointer"></i> Touch</div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card-wrap">
+                        <div class="portfolio-card interact-card">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/before4.png" class="ba-image img-before" alt="Before">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/after4.png" class="ba-image img-after" alt="After">
+                            <div class="ba-label">After</div>
+                            <div class="guide-overlay"><i class="fas fa-hand-pointer"></i> Touch</div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card-wrap">
+                        <div class="portfolio-card interact-card">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/46.png" class="ba-image img-before" alt="Before">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/47.png" class="ba-image img-after" alt="After">
+                            <div class="ba-label">After</div>
+                            <div class="guide-overlay"><i class="fas fa-hand-pointer"></i> Touch</div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card-wrap">
+                        <div class="portfolio-card interact-card">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/before5.png" class="ba-image img-before" alt="Before">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/after5.png" class="ba-image img-after" alt="After">
+                            <div class="ba-label">After</div>
+                            <div class="guide-overlay"><i class="fas fa-hand-pointer"></i> Touch</div>
+                        </div>
+                    </div>
+
+                    <a href="https://www.instagram.com/__songshop/" class="more-card" target="_blank">
+                        <i class="fab fa-instagram" style="font-size:2.5rem; margin-bottom:15px; background: -webkit-linear-gradient(#f09433, #e6683c, #dc2743, #cc2366, #bc1888, #231557); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                        <span class="more-text">남성 시술 사진<br>더 보기</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding blog-section">
+        <div class="container reveal">
+            <div class="text-center">
+                <h2 class="section-title">Men's Reviews</h2>
+                <span class="title-line"></span>
+                <p class="section-desc">남성 고객님들이 많이 묻는 포인트가 담긴 후기</p>
+            </div>
+
+            <div class="scroll-wrapper">
+                <div class="horizontal-scroll">
+                    <a href="https://blog.naver.com/dldudfks0818/224180304255" class="blog-item" target="_blank">
+                        <div class="blog-thumb">
+                            <img src="https://github.com/songshop-ms/songshop/blob/main/%ED%9B%84%EA%B8%B0%EC%8D%B8%EB%84%A4%EC%9D%BC7.png?raw=true" alt="남성 눈썹 후기">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">#남자눈썹 #자연스러움</div>
+                            <h3 class="blog-title">진하지 않게, 인상만 또렷하게</h3>
+                            <p class="blog-desc">남자눈썹은 너무 진하면 인상이 강해 보일 수 있어 자연스러움이 핵심입니다.</p>
+                            <div class="blog-link"><span class="naver-icon">N</span> 자세히 보기</div>
+                        </div>
+                    </a>
+
+                    <a href="https://blog.naver.com/ssong_1378/223834067219" class="blog-item" target="_blank">
+                        <div class="blog-thumb">
+                            <img src="https://github.com/songshop-ms/songshop/blob/main/%ED%9B%84%EA%B8%B0%EC%8D%B8%EB%84%A4%EC%9D%BC4.jpg?raw=true" alt="남편 눈썹 후기">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">#남편눈썹 #관리하는남자</div>
+                            <h3 class="blog-title">짱구 느낌 없이 깔끔해진 인상</h3>
+                            <p class="blog-desc">평소 관리를 어려워하던 남성분도 눈썹 하나로 훨씬 정돈된 느낌을 받을 수 있습니다.</p>
+                            <div class="blog-link"><span class="naver-icon">N</span> 자세히 보기</div>
+                        </div>
+                    </a>
+
+                    <a href="https://blog.naver.com/9nalog/224159427888" class="blog-item" target="_blank">
+                        <div class="blog-thumb">
+                            <img src="https://raw.githubusercontent.com/songshop-ms/songshop/refs/heads/main/%ED%9B%84%EA%B8%B0%EC%8D%B8%EB%84%A4%EC%9D%BC6.png" alt="자연 눈썹 후기">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">#무통증 #일상가능</div>
+                            <h3 class="blog-title">시술 다음날에도 어색하지 않게</h3>
+                            <p class="blog-desc">결감과 자연스러움을 살려 바로 활동해도 부담 없는 디자인을 지향합니다.</p>
+                            <div class="blog-link"><span class="naver-icon">N</span> 자세히 보기</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding process-section">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">Men's 1:1 Consultation</h2>
+                <span class="title-line"></span>
+                <p class="section-desc">남성 눈썹은 상담에서 방향을 정확히 잡는 것이 중요합니다.</p>
+            </div>
+            <div class="process-grid reveal stagger-wrap">
+                <div class="process-item stagger-item">
+                    <img src="https://github.com/songshop-ms/songshop/blob/main/%EC%83%81%EB%8B%B4.jpg?raw=true" class="process-bg" alt="남성 눈썹 상담">
+                    <div class="process-overlay">
+                        <div class="step-num">01</div>
+                        <h3 class="step-title">인상 분석</h3>
+                        <p class="step-desc">눈매, 골격, 모량, 기존 잔흔을 보고 과하지 않은 남성 맞춤 방향을 잡습니다.</p>
+                    </div>
+                </div>
+                <div class="process-item stagger-item">
+                    <img src="https://github.com/songshop-ms/songshop/blob/main/%EB%94%94%EC%9E%90%EC%9D%B81.jpg?raw=true" class="process-bg" alt="남성 눈썹 디자인">
+                    <div class="process-overlay">
+                        <div class="step-num">02</div>
+                        <h3 class="step-title">자연 결 디자인</h3>
+                        <p class="step-desc">일자형, 세미아치형, 잔흔 커버 등 얼굴에 맞는 선과 농도를 함께 확인합니다.</p>
+                    </div>
+                </div>
+                <div class="process-item stagger-item">
+                    <img src="https://github.com/songshop-ms/songshop/blob/main/%EC%9E%91%EC%97%85.jpg?raw=true" class="process-bg" alt="남성 눈썹 시술">
+                    <div class="process-overlay">
+                        <div class="step-num">03</div>
+                        <h3 class="step-title">티 나지 않는 터치</h3>
+                        <p class="step-desc">피부 데미지와 색 번짐을 줄이고, 기존 눈썹결처럼 보이도록 밀도를 조절합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: white;">
+        <div class="container reveal stagger-wrap" style="max-width: 800px;">
+            <div class="text-center">
+                <h2 class="section-title">Q&A</h2>
+                <span class="title-line"></span>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item stagger-item">
+                    <div class="faq-question">Q. 남자인데 눈썹문신 한 티가 많이 날까요? <i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p style="padding-bottom:24px;">HOSOO는 진하게 채우는 방식보다 기존 눈썹결과 모량에 맞춰 자연스럽게 보완하는 방향을 우선합니다.</p></div>
+                </div>
+                <div class="faq-item stagger-item">
+                    <div class="faq-question">Q. 직장 생활 중에도 바로 괜찮나요? <i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p style="padding-bottom:24px;">개인 피부 상태에 따라 차이는 있지만, 시술 직후에도 과하게 진해 보이지 않도록 농도와 라인을 조절합니다.</p></div>
+                </div>
+                <div class="faq-item stagger-item">
+                    <div class="faq-question">Q. 숱이 적거나 비대칭이어도 가능한가요? <i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p style="padding-bottom:24px;">가능 여부와 추천 디자인은 모량, 피부 타입, 잔흔에 따라 달라집니다. 예약 전 사진 상담을 보내주시면 더 정확히 안내드릴 수 있습니다.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 HOSOO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="floating-bar" id="floatingBar">
+        <a href="https://www.instagram.com/__songshop/" class="float-btn btn-insta" target="_blank">
+            <i class="fab fa-instagram"></i> 남성 포트폴리오
+        </a>
+
+        <a href="https://pf.kakao.com/_xhKxnhxj/chat" class="float-btn btn-inquiry" target="_blank">
+            <i class="fas fa-comment"></i> 상담 문의
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    const answer = item.querySelector('.faq-answer');
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    });
+                    if (!isActive) {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
+
+            if ('IntersectionObserver' in window) {
+                const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }
+
+            const cards = document.querySelectorAll('.interact-card');
+            cards.forEach(card => {
+                const label = card.querySelector('.ba-label');
+                card.addEventListener('click', () => {
+                    card.classList.add('is-flipped-ani');
+                    setTimeout(() => {
+                        card.classList.toggle('showing-before');
+                        const isShowingBefore = card.classList.contains('showing-before');
+                        if (isShowingBefore) {
+                            label.textContent = "Before";
+                            label.style.background = "#4F5D52";
+                        } else {
+                            label.textContent = "After";
+                            label.style.background = "rgba(0,0,0,0.62)";
+                        }
+                    }, 200);
+                    setTimeout(() => card.classList.remove('is-flipped-ani'), 500);
+                });
+            });
+
+            const floatingBar = document.getElementById('floatingBar');
+            const heroText = document.getElementById('heroText');
+            const scrollInd = document.querySelector('.scroll-indicator');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                if (scrollY > 300) floatingBar.classList.add('visible');
+                else floatingBar.classList.remove('visible');
+
+                if(scrollY < 700) {
+                    const opacityVal = 1 - (scrollY / 400);
+                    heroText.style.transform = `translateY(${scrollY * 0.3}px)`;
+                    heroText.style.opacity = opacityVal;
+                    heroText.style.filter = `blur(${scrollY / 60}px)`;
+
+                    if(scrollInd) {
+                        scrollInd.style.opacity = opacityVal;
+                        scrollInd.style.pointerEvents = opacityVal < 0.1 ? 'none' : 'auto';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
