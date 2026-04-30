@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://songshop-ms.github.io/HOSOO/sitemap.xml
